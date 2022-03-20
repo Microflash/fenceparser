@@ -1,5 +1,8 @@
 # fenceparser
 
+[![npm](https://img.shields.io/npm/v/@microflash/fenceparser)](https://www.npmjs.com/package/@microflash/fenceparser)
+[![license](https://img.shields.io/npm/l/@microflash/fenceparser)](./LICENSE.txt)
+
 A metadata parser for code-fences in markdown
 
 ## Contents
@@ -9,6 +12,8 @@ A metadata parser for code-fences in markdown
 - [Install](#install)
 - [Use](#use)
 - [API](#api)
+	- [Syntax](#syntax)
+- [Development](#development)
 - [License](#license)
 
 ## What's this?
@@ -72,6 +77,24 @@ Running the above example yields.
 ## API
 
 The default export is `parse`.
+
+### Syntax
+
+- Attributes without values are treated as flags and marked as `true`
+- Attribute values must be single or double quoted string separated by `=`
+- A special `highlight` object can be initialized by wrapping the comma-separated numbers and ranges in curly braces.
+
+Check the [fixtures](./test/fixtures.js) for examples on the syntax.
+
+## Development
+
+Any changes in the lexer or parser should have companion tests.
+
+Run the tests with the following command.
+
+```sh
+NODE_OPTIONS=--experimental-vm-modules npm test
+```
 
 ## License
 

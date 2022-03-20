@@ -1,5 +1,5 @@
 {
-  "name": "fenceparser",
+  "name": "@microflash/fenceparser",
   "version": "1.0.0",
   "description": "A metadata parser for code-fences in markdown",
   "main": "index.js",
@@ -8,9 +8,16 @@
 	},
   "type": "module",
   "repository": "https://github.com/Microflash/fenceparser.git",
-  "keywords": [],
+  "keywords": [
+		"markdown",
+		"codefence",
+		"codeblock",
+		"metadata",
+		"parser",
+		"lexer"
+	],
   "author": "Naiyer Asif (https://mflash.dev)",
-  "license": "MIT",
+  "license": "APACHE-2.0",
   "bugs": "https://github.com/Microflash/fenceparser/issues",
   "homepage": "https://github.com/Microflash/fenceparser#readme",
   "dependencies": {
