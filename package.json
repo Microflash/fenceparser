@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A metadata parser for code-fences in markdown",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+		"test": "jest"
+	},
   "type": "module",
   "repository": "https://github.com/Microflash/fenceparser.git",
   "keywords": [],
@@ -13,5 +15,8 @@
   "homepage": "https://github.com/Microflash/fenceparser#readme",
   "dependencies": {
     "chevrotain": "^10.1.2"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }
