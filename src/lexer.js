@@ -7,9 +7,9 @@ const WhiteSpace = createToken({
 	pattern: /\s+/,
 	group: Lexer.SKIPPED,
 })
-const MapEntry = createToken({
-	name: 'MapEntry',
-	pattern: /([a-zA-Z]\w+)='.*?'/,
+const KeyValuePair = createToken({
+	name: 'KeyValuePair',
+	pattern: /([a-zA-Z]\w+)=['|"].*?['|"]/,
 })
 const DashRange = createToken({
 	name: 'DashRange',
@@ -42,7 +42,7 @@ const Comma = createToken({
 
 const allTokens = [
 	WhiteSpace,
-	MapEntry,
+	KeyValuePair,
 	DashRange,
 	DotRange,
 	Word,
