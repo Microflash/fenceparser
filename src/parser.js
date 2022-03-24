@@ -36,7 +36,7 @@ class FenceParser {
 
 		try {
 			const pairs = this.input
-				.filter(token => ['SingleQuotedPair', 'DoubleQuotedPair', 'BacktickedPair'].includes(token.tokenType.name))
+				.filter(token => token.tokenType.name === 'Pair')
 			if (pairs && pairs.length) {
 				for (const pair of pairs) {
 					const { key, value } = parsePair(pair.image)

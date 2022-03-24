@@ -4,17 +4,9 @@ const Highlight = createToken({
 	name: 'Highlight',
 	pattern: /(?!{|})([-\d.]+)/,
 })
-const DoubleQuotedPair = createToken({
-	name: 'DoubleQuotedPair',
-	pattern: /[a-z][-\w\d]+=(["])((?:\\\1|(?:(?!\1)).)*)(\1)/,
-})
-const SingleQuotedPair = createToken({
-	name: 'SingleQuotedPair',
-	pattern: /[a-z][-\w\d]+=(['])((?:\\\1|(?:(?!\1)).)*)(\1)/,
-})
-const BacktickedPair = createToken({
-	name: 'BacktickedPair',
-	pattern: /[a-z][-\w\d]+=([`])((?:\\\1|(?:(?!\1)).)*)(\1)/,
+const Pair = createToken({
+	name: 'Pair',
+	pattern: /[a-z][-\w\d]+=(["'`])((?:\\\1|(?:(?!\1)).)*)(\1)/,
 })
 const WhiteSpace = createToken({
 	name: 'WhiteSpace',
@@ -25,9 +17,7 @@ const WhiteSpace = createToken({
 const fenceTokens = [
 	WhiteSpace,
 	Highlight,
-	SingleQuotedPair,
-	DoubleQuotedPair,
-	BacktickedPair,
+	Pair,
 ]
 
 const FenceLexer = new Lexer(fenceTokens)

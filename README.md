@@ -21,7 +21,7 @@ A metadata parser for code-fences in markdown
 Many markdown processors can parse the language token associated with a codefence. `fenceparser` is meant for parsing other metadata besides language token. It supports 
 
 - line highlight ranges, (e.g., `{1} {3, 7} {9-11, 88} {90, 101..167}`) and 
-- key-value data (e.g., `caption='Hello, World'`)
+- key-value pairs (e.g., `caption='Hello, World'`)
 
 ## Install
 
@@ -41,7 +41,7 @@ Say, you have the following code fence
 ```js {1} {3, 7} {9-11, 88} {90, 101..112} text-color='--text-default' syntax_theme="nord" css=`{ *: { display: none }}`
 ```
 
-[remark](https://github.com/remarkjs/remark) will provide the `meta` and `lang` for the above code fence.
+[remark](https://github.com/remarkjs/remark) will provide the `meta` and `lang` for the above codefence.
 
 ```json
 {
@@ -80,12 +80,10 @@ The default export is `parse`.
 
 ### Syntax
 
-- For key-value pairs, 
-  - key and value must be separated by `=`, and 
-  - value must be within single-quotes `'`, double-quotes `"` or backticks `\``
-- A special `highlight` object can be initialized by 
-  - wrapping the comma-separated numbers and ranges in curly braces
-  - ranges must be separated by a hyphen `-` or double-dots `..`
+- For key-value pairs, the key and value must be separated by `=`, and the must be wrapped within single-quotes `'`, double-quotes `"` or backticks `\``.
+- To initialize the `highlight` object, provide comma separated numbers or ranges wrapped within the curly braces. 
+- A range must be separated by a hyphen `-` or double-dots `..`.
+- Multiple ranges will be merge together in a single array. 
 
 Check the [fixtures](./test/fixtures.js) for examples on the syntax.
 
