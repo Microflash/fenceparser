@@ -1,55 +1,35 @@
 import { createToken, Lexer } from 'chevrotain'
 
-const lcurlyMatcher = (text, startOffset) => /^\{/.match(text)
-
+const Highlight = createToken({
+	name: 'Highlight',
+	pattern: /(?!{|})([-\d.]+)/,
+})
+const DoubleQuotedPair = createToken({
+	name: 'DoubleQuotedPair',
+	pattern: /[a-z][-\w\d]+=(["])((?:\\\1|(?:(?!\1)).)*)(\1)/,
+})
+const SingleQuotedPair = createToken({
+	name: 'SingleQuotedPair',
+	pattern: /[a-z][-\w\d]+=(['])((?:\\\1|(?:(?!\1)).)*)(\1)/,
+})
+const BacktickedPair = createToken({
+	name: 'BacktickedPair',
+	pattern: /[a-z][-\w\d]+=([`])((?:\\\1|(?:(?!\1)).)*)(\1)/,
+})
 const WhiteSpace = createToken({
 	name: 'WhiteSpace',
 	pattern: /\s+/,
 	group: Lexer.SKIPPED,
 })
-const KeyValuePair = createToken({
-	name: 'KeyValuePair',
-	pattern: /([a-zA-Z]\w+)=['|"].*?['|"]/,
-})
-const DashRange = createToken({
-	name: 'DashRange',
-	pattern: /(\d+)-(\d+)/,
-})
-const DotRange = createToken({
-	name: 'DotRange',
-	pattern: /(\d+)\.\.(\d+)/,
-})
-const Word = createToken({
-	name: 'Word',
-	pattern: /[a-zA-Z]\w+/,
-})
-const NumericLiteral = createToken({
-	name: 'NumericLiteral',
-	pattern: /\d+/,
-})
-const LCurly = createToken({
-	name: 'LCurly',
-	pattern: /\{/,
-})
-const RCurly = createToken({
-	name: 'RCurly',
-	pattern: /\}/,
-})
-const Comma = createToken({
-	name: 'Comma',
-	pattern: /,/,
-})
 
-const allTokens = [
+const fenceTokens = [
 	WhiteSpace,
-	KeyValuePair,
-	DashRange,
-	DotRange,
-	Word,
-	NumericLiteral,
-	LCurly,
-	RCurly,
-	Comma,
+	Highlight,
+	SingleQuotedPair,
+	DoubleQuotedPair,
+	BacktickedPair,
 ]
 
-export default new Lexer(allTokens)
+const FenceLexer = new Lexer(fenceTokens)
+
+export default FenceLexer

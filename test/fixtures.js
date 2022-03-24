@@ -39,12 +39,12 @@ const fixtures = [
 	},
 	{
 		input: ['{}'],
-		output: { highlight: [] },
+		output: {},
 	},
 	{
 		input: ['true="false"'],
 		output: {
-			true: false,
+			true: "false",
 		},
 	},
 	{
@@ -54,14 +54,10 @@ const fixtures = [
 	{
 		input: ['maxRun="1"'],
 		output: {
-			maxRun: 1,
+			maxRun: "1",
 		},
 	},
 	// isolated
-	{
-		input: ['showCopy'],
-		output: { showCopy: true },
-	},
 	{
 		input: ['{1}'],
 		output: { highlight: [1] },
@@ -108,19 +104,17 @@ const fixtures = [
 	// together (medium)
 	{
 		input: [
-			'showCopy',
 			'{9-11, 88}',
 			'{90-92, 109..112}',
 			'caption="Hello, World"',
-			'color="--text-default"',
-			'theme="nord"',
-			'css="{ *: { display: none }}"',
+			"text-color='--text-default'",
+			'syntax_theme="nord"',
+			'css=`{ *: { display: none }}`',
 		],
 		output: {
-			showCopy: true,
 			caption: 'Hello, World',
-			color: '--text-default',
-			theme: 'nord',
+			'text-color': '--text-default',
+			syntax_theme: 'nord',
 			css: '{ *: { display: none }}',
 			highlight: [9, 10, 11, 88, 90, 91, 92, 109, 110, 111, 112],
 		},

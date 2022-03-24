@@ -1,6 +1,6 @@
 {
   "name": "@microflash/fenceparser",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A metadata parser for code-fences in markdown",
   "main": "index.js",
   "scripts": {

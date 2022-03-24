@@ -20,9 +20,8 @@ A metadata parser for code-fences in markdown
 
 Many markdown processors can parse the language token associated with a codefence. `fenceparser` is meant for parsing other metadata besides language token. It supports 
 
-- boolean flags (e.g., `showCopy`)
 - line highlight ranges, (e.g., `{1} {3, 7} {9-11, 88} {90, 101..167}`) and 
-- arbitrary key-value data (e.g., `caption='Hello, World'`)
+- key-value data (e.g., `caption='Hello, World'`)
 
 ## Install
 
@@ -39,7 +38,7 @@ npm install @microflash/fenceparser
 Say, you have the following code fence
 
 ```
-```js showCopy {1} {3, 7} {9-11, 88} {90, 101..112} caption='Hello, World'
+```js {1} {3, 7} {9-11, 88} {90, 101..112} text-color='--text-default' syntax_theme="nord" css=`{ *: { display: none }}`
 ```
 
 [remark](https://github.com/remarkjs/remark) will provide the `meta` and `lang` for the above code fence.
@@ -47,7 +46,7 @@ Say, you have the following code fence
 ```json
 {
   "lang": "js",
-  "meta": "showCopy {9-11, 90, 101..112} caption='Hello, World!'"
+  "meta": "{1} {3, 7} {9-11, 88} {90, 101..112} text-color='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"
 }
 ```
 
@@ -56,15 +55,16 @@ Use the `fenceparser` to parse the `meta` as follows.
 ```js
 import parse from '@microflash/fenceparser'
 
-console.log(parse("showCopy {1} {3, 7} {9-11, 88} {90, 101..112} caption='Hello, World'"))
+console.log(parse("{1} {3, 7} {9-11, 88} {90, 101..112} text-color='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"))
 ```
 
 Running the above example yields.
 
 ```js
 {
-  showCopy: true,
-  caption: 'Hello, World',
+  'text-color': '--text-default',
+  syntax_theme: 'nord',
+  css: '{ *: { display: none }}',
   highlight: [
       1,   3,   7,   9,  10,  11,
      88,  90, 101, 102, 103, 104,
@@ -80,9 +80,12 @@ The default export is `parse`.
 
 ### Syntax
 
-- Attributes without values are treated as flags and marked as `true`
-- Attribute values must be single or double quoted string separated by `=`
-- A special `highlight` object can be initialized by wrapping the comma-separated numbers and ranges in curly braces.
+- For key-value pairs, 
+  - key and value must be separated by `=`, and 
+  - value must be within single-quotes `'`, double-quotes `"` or backticks `\``
+- A special `highlight` object can be initialized by 
+  - wrapping the comma-separated numbers and ranges in curly braces
+  - ranges must be separated by a hyphen `-` or double-dots `..`
 
 Check the [fixtures](./test/fixtures.js) for examples on the syntax.
 
