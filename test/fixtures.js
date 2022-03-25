@@ -23,8 +23,8 @@ const permute = (input) => {
 	return result
 }
 
-const prepareCases = (cases) => {
-	return cases
+const prepareFixtures = (fixtures) => {
+	return fixtures
 		.map(({ input, ...props }) => {
 			return permute(input).map((p) => ({ input: p.join(' '), ...props }))
 		})
@@ -47,10 +47,10 @@ const fixtures = [
 			true: "false",
 		},
 	},
-	{
-		input: ['0="1"'],
-		output: {},
-	},
+	// {
+	// 	input: ['0="1"'],
+	// 	output: {},
+	// },
 	{
 		input: ['maxRun="1"'],
 		output: {
@@ -101,6 +101,14 @@ const fixtures = [
 			],
 		},
 	},
+	{
+		input: ['showCopy="true"', "data-motion=`reduced`", 'app_context="root"'],
+		output: {
+			app_context: 'root',
+			'data-motion': 'reduced',
+			showCopy: 'true'
+		}
+	},
 	// together (medium)
 	{
 		input: [
@@ -119,7 +127,7 @@ const fixtures = [
 			highlight: [9, 10, 11, 88, 90, 91, 92, 109, 110, 111, 112],
 		},
 	},
-	// // together (complex)
+	// together (complex)
 ]
 
-export default prepareCases(fixtures)
+export default prepareFixtures(fixtures)

@@ -1,6 +1,7 @@
 # fenceparser
 
 [![npm](https://img.shields.io/npm/v/@microflash/fenceparser)](https://www.npmjs.com/package/@microflash/fenceparser)
+[![regression](https://github.com/Microflash/fenceparser/actions/workflows/regression.yml/badge.svg)](https://github.com/Microflash/fenceparser/actions/workflows/regression.yml)
 [![license](https://img.shields.io/npm/l/@microflash/fenceparser)](./LICENSE.txt)
 
 A metadata parser for code-fences in markdown
@@ -18,7 +19,7 @@ A metadata parser for code-fences in markdown
 
 ## What's this?
 
-Many markdown processors can parse the language token associated with a codefence. `fenceparser` is meant for parsing other metadata besides language token. It supports 
+Many markdown processors can parse the language token associated with a code-fence. `fenceparser` is meant for parsing other metadata besides language token. It supports 
 
 - line highlight ranges, (e.g., `{1} {3, 7} {9-11, 88} {90, 101..167}`) and 
 - key-value pairs (e.g., `caption='Hello, World'`)
@@ -35,13 +36,13 @@ npm install @microflash/fenceparser
 
 ## Use
 
-Say, you have the following code fence
+Say, you have the following code-fence
 
 ```
 ```js {1} {3, 7} {9-11, 88} {90, 101..112} text-color='--text-default' syntax_theme="nord" css=`{ *: { display: none }}`
 ```
 
-[remark](https://github.com/remarkjs/remark) will provide the `meta` and `lang` for the above codefence.
+[remark](https://github.com/remarkjs/remark) will provide the `meta` and `lang` for the above code-fence.
 
 ```json
 {
@@ -80,10 +81,10 @@ The default export is `parse`.
 
 ### Syntax
 
-- For key-value pairs, the key and value must be separated by `=`, and the must be wrapped within single-quotes `'`, double-quotes `"` or backticks `\``.
+- For key-value pairs, the key and value must be separated by `=`. The value must be wrapped within single-quotes `'`, double-quotes `"` or backticks `\``.
 - To initialize the `highlight` object, provide comma separated numbers or ranges wrapped within the curly braces. 
 - A range must be separated by a hyphen `-` or double-dots `..`.
-- Multiple ranges will be merge together in a single array. 
+- Multiple ranges will be merged together in a single array. 
 
 Check the [fixtures](./test/fixtures.js) for examples on the syntax.
 
@@ -94,7 +95,7 @@ Any changes in the lexer or parser should have companion tests.
 Run the tests with the following command.
 
 ```sh
-NODE_OPTIONS=--experimental-vm-modules npm test
+npm test
 ```
 
 ## License

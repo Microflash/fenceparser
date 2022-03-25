@@ -18,4 +18,4 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run the tests
-        run: NODE_OPTIONS=--experimental-vm-modules npm test
+        run: npm test

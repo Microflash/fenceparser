@@ -1,14 +1,14 @@
 {
-  "name": "@microflash/fenceparser",
-  "version": "2.5.0",
-  "description": "A metadata parser for code-fences in markdown",
-  "main": "index.js",
-  "scripts": {
-		"test": "jest"
+	"name": "@microflash/fenceparser",
+	"version": "2.5.1",
+	"description": "A metadata parser for code-fences in markdown",
+	"main": "index.js",
+	"scripts": {
+		"test": "ava"
 	},
-  "type": "module",
-  "repository": "https://github.com/Microflash/fenceparser.git",
-  "keywords": [
+	"type": "module",
+	"repository": "https://github.com/Microflash/fenceparser.git",
+	"keywords": [
 		"markdown",
 		"codefence",
 		"codeblock",
@@ -16,14 +16,19 @@
 		"parser",
 		"lexer"
 	],
-  "author": "Naiyer Asif (https://mflash.dev)",
-  "license": "APACHE-2.0",
-  "bugs": "https://github.com/Microflash/fenceparser/issues",
-  "homepage": "https://github.com/Microflash/fenceparser#readme",
-  "dependencies": {
-    "chevrotain": "^10.1.2"
-  },
-  "devDependencies": {
-    "jest": "^27.5.1"
-  }
+	"author": "Naiyer Asif (https://mflash.dev)",
+	"license": "APACHE-2.0",
+	"bugs": "https://github.com/Microflash/fenceparser/issues",
+	"homepage": "https://github.com/Microflash/fenceparser#readme",
+	"dependencies": {
+		"chevrotain": "^10.1.2"
+	},
+	"devDependencies": {
+		"ava": "^4.1.0"
+	},
+	"ava": {
+		"files": [
+			"test/**/*.test.js"
+		]
+	}
 }
