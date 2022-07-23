@@ -1,8 +1,8 @@
 import { createToken, Lexer } from 'chevrotain'
 
-const Highlight = createToken({
-	name: 'Highlight',
-	pattern: /(?!{|})([-\d.]+)/,
+const Range = createToken({
+	name: 'Range',
+	pattern: /([\w]*)({[-.,\d\s]+})/,
 })
 const Pair = createToken({
 	name: 'Pair',
@@ -16,8 +16,8 @@ const WhiteSpace = createToken({
 
 const fenceTokens = [
 	WhiteSpace,
-	Highlight,
 	Pair,
+	Range
 ]
 
 const FenceLexer = new Lexer(fenceTokens)
