@@ -44,12 +44,17 @@ class FenceParser {
 				}
 			}
 
-			const highlight = this.input
-				.filter(token => token.tokenType.name === 'Highlight')
-			if (highlight && highlight.length) {
-				metadata['highlight'] = highlight
-					.map(token => token.image)
-					.flatMap(token => parseRange(token))
+			const ranges = this.input
+				.filter(token => token.tokenType.name === 'Range')
+			if (ranges && ranges.length) {
+				for (const range of ranges) {
+					const startIndex = range.image.indexOf('{')
+					const stopIndex = range.image.indexOf('}')
+					const key = range.image.substring(0, startIndex) || 'highlight'
+					const values = range.image.substring(startIndex + 1, stopIndex).split(',').flatMap(token => parseRange(token.trim()))
+					const rangeValues = metadata[key] || []
+					metadata[key] = [...rangeValues, ...values]
+				}
 			}
 		} catch (e) {
 			parsingErrors.push(e)
