@@ -106,7 +106,7 @@ The default export is `parse`.
 #### Key-value pairs
 
 - The key and value must be separated by equality sign `=`.
-- The value must be wrapped within single-quotes `'`, double-quotes `"` or backticks `\``.
+- The value must be wrapped within single-quotes `'`, double-quotes `"` or backticks `` ` ``.
 
 #### Ranges
 
