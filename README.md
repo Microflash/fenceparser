@@ -9,7 +9,7 @@ A metadata parser for code fences in markdown
 ## Contents
 
 - [Contents](#contents)
-- [What's this?](#whats-this)
+- [What’s this?](#whats-this)
 - [Install](#install)
 - [Use](#use)
 - [API](#api)
@@ -22,7 +22,7 @@ A metadata parser for code fences in markdown
 - [Development](#development)
 - [License](#license)
 
-## What's this?
+## What’s this?
 
 Many markdown processors can parse the language token associated with a code fence. `fenceparser` is meant for parsing other metadata besides language token. It supports 
 

@@ -1,6 +1,6 @@
 {
 	"name": "@microflash/fenceparser",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"description": "A metadata parser for code fences in markdown",
 	"main": "src/index.js",
 	"scripts": {
@@ -21,10 +21,10 @@
 	"bugs": "https://github.com/Microflash/fenceparser/issues",
 	"homepage": "https://github.com/Microflash/fenceparser#readme",
 	"dependencies": {
-		"chevrotain": "^10.3.0"
+		"chevrotain": "^10.4.2"
 	},
 	"devDependencies": {
-		"ava": "^4.3.3"
+		"ava": "^5.1.0"
 	},
 	"ava": {
 		"files": [
