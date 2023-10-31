@@ -4,18 +4,29 @@ on:
   push:
     branches: 
       - main
+      - v3
 
 jobs:
   regression:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/checkout@v4
+      
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
         with:
-          node-version: '16'
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
+
       - name: Run the tests
-        run: npm test
+        run: pnpm test

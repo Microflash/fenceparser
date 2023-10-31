@@ -6,9 +6,6 @@
 
 A metadata parser for code fences in markdown
 
-## Contents
-
-- [Contents](#contents)
 - [What’s this?](#whats-this)
 - [Install](#install)
 - [Use](#use)
@@ -42,14 +39,14 @@ npm install @microflash/fenceparser
 In Deno, with [esm.sh](https://esm.sh/):
 
 ```js
-import fenceparser from 'https://esm.sh/@microflash/fenceparser'
+import fenceparser from "https://esm.sh/@microflash/fenceparser";
 ```
 
 In browsers, with [esm.sh](https://esm.sh/):
 
 ```html
 <script type="module">
-  import fenceparser from 'https://esm.sh/@microflash/fenceparser?bundle'
+  import fenceparser from "https://esm.sh/@microflash/fenceparser?bundle";
 </script>
 ```
 
@@ -73,9 +70,9 @@ Say, you have the following code fence
 Use the `fenceparser` to parse the `meta` as follows.
 
 ```js
-import parse from '@microflash/fenceparser'
+import parse from "@microflash/fenceparser";
 
-console.log(parse("{1} {3, 7} {9-11, 88} ins{90, 101..112} text-color='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"))
+console.log(parse("{1} {3, 7} {9-11, 88} ins{90, 101..112} text-color='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"));
 ```
 
 Running the above example yields.
@@ -121,9 +118,9 @@ The default export is `parse`.
 ### Example: single range
 
 ```js
-import parse from '@microflash/fenceparser'
+import parse from "@microflash/fenceparser";
 
-console.log(parse("{100}"))
+console.log(parse("{100}"));
 ```
 
 Running the above example yields.
@@ -139,9 +136,9 @@ Running the above example yields.
 ### Example: multiple ranges
 
 ```js
-import parse from '@microflash/fenceparser'
+import parse from "@microflash/fenceparser";
 
-console.log(parse("{3, 7} {9-11, 101..105}"))
+console.log(parse("{3, 7} {9-11, 101..105}"));
 ```
 
 Running the above example yields.
@@ -159,9 +156,9 @@ Running the above example yields.
 
 
 ```js
-import parse from '@microflash/fenceparser'
+import parse from "@microflash/fenceparser";
 
-console.log(parse("{3, 7} ins{9-11, 13} del{101..105}"))
+console.log(parse("{3, 7} ins{9-11, 13} del{101..105}"));
 ```
 
 Running the above example yields.
@@ -183,9 +180,9 @@ Running the above example yields.
 ### Example: key-value pairs
 
 ```js
-import parse from '@microflash/fenceparser'
+import parse from "@microflash/fenceparser";
 
-console.log(parse("data-theme='synthwave' callback=`(code) => copyToClipboard(code)`"))
+console.log(parse("data-theme='synthwave' callback=`(code) => copyToClipboard(code)`"));
 ```
 
 Running the above example yields.
