@@ -1,35 +1,35 @@
 const permute = (input) => {
-	const result = [input.slice()]
-	const c = new Array(input.length).fill(0)
+	const result = [input.slice()];
+	const c = new Array(input.length).fill(0);
 	let i = 1,
 		k,
-		p
+		p;
 
 	while (i < input.length) {
 		if (c[i] < i) {
-			k = i % 2 && c[i]
-			p = input[i]
-			input[i] = input[k]
-			input[k] = p
-			++c[i]
-			i = 1
-			result.push(input.slice())
+			k = i % 2 && c[i];
+			p = input[i];
+			input[i] = input[k];
+			input[k] = p;
+			++c[i];
+			i = 1;
+			result.push(input.slice());
 		} else {
-			c[i] = 0
-			++i
+			c[i] = 0;
+			++i;
 		}
 	}
 
-	return result
-}
+	return result;
+};
 
 const prepareFixtures = (fixtures) => {
 	return fixtures
 		.map(({ input, ...props }) => {
-			return permute(input).map((p) => ({ input: p.join(' '), ...props }))
+			return permute(input).map((p) => ({ input: p.join(" "), ...props }));
 		})
-		.reduce((a, b) => [...a, ...b])
-}
+		.reduce((a, b) => [...a, ...b]);
+};
 
 const fixtures = [
 	// edge cases
@@ -163,6 +163,6 @@ const fixtures = [
 		},
 	},
 	// together (complex)
-]
+];
 
-export default prepareFixtures(fixtures)
+export default prepareFixtures(fixtures);
