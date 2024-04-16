@@ -1,8 +1,4 @@
 import test from "ava";
-import FenceParser from "../src/index.js";
-import fixtures from "./fixtures.js";
-
-const parser = new FenceParser();
 
 const macro = test.macro({
 	exec(t, input, expected) {
@@ -25,10 +21,4 @@ const macro = test.macro({
 	}
 });
 
-for (const fixture of fixtures) {
-	const result = parser.parse(fixture.input);
-	const expected = fixture.output;
-	const title = `input "${fixture.input}"`;
-
-	test(title, macro, result, expected);
-}
+export default macro;
