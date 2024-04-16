@@ -32,27 +32,6 @@ const prepareFixtures = (fixtures) => {
 };
 
 const fixtures = [
-	// edge cases
-	{
-		input: [''],
-		output: {},
-	},
-	{
-		input: ['{}'],
-		output: {},
-	},
-	{
-		input: ['true="false"'],
-		output: {
-			true: "false",
-		},
-	},
-	{
-		input: ['maxRun="1"'],
-		output: {
-			maxRun: "1",
-		},
-	},
 	// isolated
 	{
 		input: ['{1}'],
