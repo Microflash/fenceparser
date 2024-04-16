@@ -4,10 +4,10 @@ import defu from "defu";
 const keyValuePairPattern = /(\w+)=(?:'([^']*)'|"([^"]*)"|\`([^`]*)\`)/;
 
 const WhiteSpace = createToken({ name: "WhiteSpace", pattern: /\s+/, group: Lexer.SKIPPED });
-const Range0 = createToken({ name: "Range0", pattern: /\w*{\d+}/ });
-const Range2 = createToken({ name: "Range2", pattern: /\w*{\d+\.\.\d+}/ });
-const Ranges = createToken({ name: "Ranges", pattern: /\w*{(?:\d+|\d+\.\.\d+)(?:,\s*(?:\d+|\d+\.\.\d+))*}/ });
-const KeyValuePair = createToken({ name: "KeyValuePair", pattern: keyValuePairPattern });
+const Range0 = createToken({ name: "Range0", pattern: /\w*{\d+}/, label: "range" });
+const Range2 = createToken({ name: "Range2", pattern: /\w*{\d+\.\.\d+}/, label: "range" });
+const Ranges = createToken({ name: "Ranges", pattern: /\w*{(?:\d+|\d+\.\.\d+)(?:,\s*(?:\d+|\d+\.\.\d+))*}/, label: "range" });
+const KeyValuePair = createToken({ name: "KeyValuePair", pattern: keyValuePairPattern, label: "pair" });
 
 const tokens = [
 	WhiteSpace,
@@ -39,18 +39,29 @@ export default class FenceParser {
 		}
 	}
 
-	process({ token, type }) {
+	process(token0) {
+		const label = token0.tokenType.LABEL;
+		const token = token0.image;
+		const type = token0.tokenType.name;
 		switch(type) {
 			case "Range0":
 				const r0 = this.stripParantheses(token);
-				return { key: r0.key, value: [Number(r0.value)], type: "range" };
+				return {
+					key: r0.key,
+					value: [Number(r0.value)],
+					type: label
+				};
 			case "Range2":
 				const r2 = this.stripParantheses(token);
-				const bounds = r2.value.split("..").map((bound) => Number(bound));
-				const start = Math.min(...bounds);
-				const stop = Math.max(...bounds);
+				const [ b0, b1 ] = r2.value.split("..").map((bound) => Number(bound));
+				const start = Math.min(b0, b1);
+				const stop = Math.max(b0, b1);
 				const size = stop - start + 1;
-				return { key: r2.key, value: Array.from({ length: size }, (_, i) => i + start), type: "range" };
+				return {
+					key: r2.key,
+					value: Array.from({ length: size }, (_, i) => i + start),
+					type: label
+				};
 			case "Ranges":
 				const rx = this.stripParantheses(token);
 				return {
@@ -58,17 +69,16 @@ export default class FenceParser {
 					value: rx.value.split(",")
 						.map(res => "{" + res.trim() + "}")
 						.flatMap(res => FenceParser.FenceLexer.tokenize(res).tokens)
-						.map(res => ({ token: res.image, type: res.tokenType.name }))
 						.map(res => this.process(res))
 						.flatMap(res => res.value),
-					type: "range"
+					type: label
 				}
 			case "KeyValuePair":
 				let [, key = "key", v1, v2, v3] = token.match(keyValuePairPattern);
 				return {
 					key,
 					value: v1 || v2 || v3,
-					type: "pair"
+					type: label
 				};
 			default:
 				console.warn(`Unsupported token type ${type}`);
@@ -77,16 +87,17 @@ export default class FenceParser {
 
 	parse(text) {
 		const { tokens } = FenceParser.FenceLexer.tokenize(text);
-		return tokens
-			.map(res => ({ token: res.image, type: res.tokenType.name }))
-			.map(res => this.process(res))
-			.reduce((acc, { key, value, type }) => {
-				const isRange = type === "range";
-				acc[key] ??= isRange ? [] : value;
-				if(isRange && Array.isArray(value)) {
-					acc[key] = acc[key].concat(value);
-				}
-				return acc;
-			}, {});
+
+		const response = {};
+		for (const token of tokens) {
+			const { key, value, type } = this.process(token);
+			const isRange = type === "range";
+			response[key] ??= isRange ? [] : value;
+			if (isRange) {
+				response[key] = response[key].concat(value);
+			}
+		}
+
+		return response;
 	}
 };
