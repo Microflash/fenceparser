@@ -226,7 +226,7 @@ Running the above example yields.
 }
 ```
 
-Check the [fixtures](./test/fixtures.js) for more examples on the syntax.
+Check the [fixtures](./test/fixtures/) for more examples on the syntax.
 
 ## Development
 
