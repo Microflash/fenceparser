@@ -57,7 +57,7 @@ In browsers, with [esm.sh](https://esm.sh/):
 Say, you have the following code fence
 
 ```
-```js {1} {3, 7} {9..11, 88} {90, 101..112} textColor='--text-default' syntax_theme="nord" css=`{ *: { display: none }}`
+```js {1} {3, 7} {9..11, 88} {90, 101..112} text-color='--text-default' syntax_theme="nord" css=`{ *: { display: none }}`
 ```
 
 [remark](https://github.com/remarkjs/remark) will provide the `meta` and `lang` for the above code fence.
@@ -65,7 +65,7 @@ Say, you have the following code fence
 ```json
 {
   "lang": "js",
-  "meta": "{1} {3, 7} {9..11, 88} {90, 101..112} textColor='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"
+  "meta": "{1} {3, 7} {9..11, 88} {90, 101..112} text-color='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"
 }
 ```
 
@@ -75,14 +75,14 @@ Use the `fenceparser` to parse the `meta` as follows.
 import FenceParser from "@microflash/fenceparser";
 
 const parser = new FenceParser();
-console.log(parser.parse("{1} {3, 7} {9..11, 88} {90, 101..112} textColor='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"));
+console.log(parser.parse("{1} {3, 7} {9..11, 88} {90, 101..112} text-color='--text-default' syntax_theme=\"nord\" css=`{ *: { display: none }}`"));
 ```
 
 Running the above example yields.
 
 ```js
 {
-  textColor: '--text-default',
+  'text-color': '--text-default',
   syntax_theme: 'nord',
   css: '{ *: { display: none }}',
   highlight: [
@@ -195,14 +195,14 @@ Running the above example yields.
 import FenceParser from "@microflash/fenceparser";
 
 const parser = new FenceParser();
-console.log(parse("dataTheme='synthwave' callback=`(code) => copyToClipboard(code)`"));
+console.log(parse("data-theme='synthwave' callback=`(code) => copyToClipboard(code)`"));
 ```
 
 Running the above example yields.
 
 ```js
 {
-  dataTheme: 'synthwave',
+  'data-theme': 'synthwave',
   callback: '(code) => copyToClipboard(code)',
 }
 ```
