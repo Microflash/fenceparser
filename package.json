@@ -1,6 +1,6 @@
 {
 	"name": "@microflash/fenceparser",
-	"version": "3.0.0-beta.4",
+	"version": "3.0.0",
 	"description": "A metadata parser for code fences in markdown",
 	"main": "src/index.js",
 	"scripts": {
@@ -13,8 +13,7 @@
 		"codefence",
 		"codeblock",
 		"metadata",
-		"parser",
-		"lexer"
+		"parser"
 	],
 	"author": "Naiyer Asif (https://www.naiyerasif.com)",
 	"license": "MIT",
