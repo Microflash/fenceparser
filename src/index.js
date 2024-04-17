@@ -28,58 +28,53 @@ export default class FenceParser {
 		this.options = defu(options, FenceParser.DefaultOptions);
 	}
 
-	stripParantheses(token) {
-		const startIndex = token.indexOf("{");
-		const stopIndex = token.indexOf("}");
-		const key = token.substring(0, startIndex) || this.options.rangeKey;
-		const value = token.substring(startIndex + 1, stopIndex);
-		return {
-			key,
-			value
+	extractRawPair(token, label) {
+		switch (label) {
+			case "range":
+				const startIndex = token.indexOf("{");
+				const stopIndex = token.indexOf("}");
+				return {
+					key: token.substring(0, startIndex) || this.options.rangeKey,
+					value: token.substring(startIndex + 1, stopIndex)
+				};
+			case "pair":
+				const [, key = "key", v1, v2, v3] = token.match(keyValuePairPattern);
+				return { key, value: v1 || v2 || v3 };
+			default:
+				console.warn(`Unsupported token type ${label}`);
 		}
 	}
 
-	process(token0) {
+	extractPair(token0) {
 		const label = token0.tokenType.LABEL;
 		const token = token0.image;
+		const { key, value } = this.extractRawPair(token, label);
 		const type = token0.tokenType.name;
 		switch(type) {
 			case "Range0":
-				const r0 = this.stripParantheses(token);
-				return {
-					key: r0.key,
-					value: [Number(r0.value)],
-					type: label
-				};
+				return { key, value: [Number(value)], label };
 			case "Range2":
-				const r2 = this.stripParantheses(token);
-				const [ b0, b1 ] = r2.value.split("..").map((bound) => Number(bound));
+				const [ b0, b1 ] = value.split("..").map((bound) => Number(bound));
 				const start = Math.min(b0, b1);
 				const stop = Math.max(b0, b1);
 				const size = stop - start + 1;
 				return {
-					key: r2.key,
+					key,
 					value: Array.from({ length: size }, (_, i) => i + start),
-					type: label
+					label
 				};
 			case "Ranges":
-				const rx = this.stripParantheses(token);
-				return {
-					key: rx.key,
-					value: rx.value.split(",")
-						.map(res => "{" + res.trim() + "}")
-						.flatMap(res => FenceParser.FenceLexer.tokenize(res).tokens)
-						.map(res => this.process(res))
-						.flatMap(res => res.value),
-					type: label
-				}
-			case "KeyValuePair":
-				let [, key = "key", v1, v2, v3] = token.match(keyValuePairPattern);
 				return {
 					key,
-					value: v1 || v2 || v3,
-					type: label
-				};
+					value: value.split(",")
+						.map(res => `{${res.trim()}}`)
+						.flatMap(res => FenceParser.FenceLexer.tokenize(res).tokens)
+						.map(res => this.extractPair(res))
+						.flatMap(res => res.value),
+					label
+				}
+			case "KeyValuePair":
+				return { key, value, label };
 			default:
 				console.warn(`Unsupported token type ${type}`);
 		}
@@ -90,8 +85,8 @@ export default class FenceParser {
 
 		const response = {};
 		for (const token of tokens) {
-			const { key, value, type } = this.process(token);
-			const isRange = type === "range";
+			const { key, value, label } = this.extractPair(token);
+			const isRange = label === "range";
 			response[key] ??= isRange ? [] : value;
 			if (isRange) {
 				response[key] = response[key].concat(value);
