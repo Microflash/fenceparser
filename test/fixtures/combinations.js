@@ -108,10 +108,10 @@ const fixtures = [
 		}
 	},
 	{
-		input: ['showCopy="true"', "dataMotion=`reduced`", 'app_context="root"'],
+		input: ['showCopy="true"', "data-motion=`reduced`", 'app_context="root"'],
 		output: {
 			app_context: 'root',
-			dataMotion: 'reduced',
+			'data-motion': 'reduced',
 			showCopy: 'true'
 		}
 	},
@@ -121,14 +121,14 @@ const fixtures = [
 			'{9..11, 88}',
 			'{92, 109..112}',
 			'caption="Hello, World"',
-			"textColor='--text-default'",
+			"text-color='--text-default'",
 			'syntax_theme="nord"',
 			'css=`{ *: { display: none }}`',
 			'prompt{3, 9..11}',
 		],
 		output: {
 			caption: 'Hello, World',
-			textColor: '--text-default',
+			'text-color': '--text-default',
 			syntax_theme: 'nord',
 			css: '{ *: { display: none }}',
 			highlight: [

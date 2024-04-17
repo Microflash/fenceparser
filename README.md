@@ -112,6 +112,7 @@ The following options are available. All of them are optional.
 
 - The key and value must be separated by equality sign `=`.
 - The value must be wrapped within single-quotes `'`, double-quotes `"` or backticks `` ` ``.
+- The key can contain letters, digits, underscore, and hyphen.
 
 #### Ranges
 

@@ -1,7 +1,7 @@
 import { createToken, Lexer } from "chevrotain";
 import defu from "defu";
 
-const keyValuePairPattern = /(\w+)=(?:'([^']*)'|"([^"]*)"|\`([^`]*)\`)/;
+const keyValuePairPattern = /([-\w]+)=(?:'([^']*)'|"([^"]*)"|\`([^`]*)\`)/;
 
 const WhiteSpace = createToken({ name: "WhiteSpace", pattern: /\s+/, group: Lexer.SKIPPED });
 const Range0 = createToken({ name: "Range0", pattern: /\w*{\d+}/, label: "range" });
