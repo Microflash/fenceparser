@@ -5,14 +5,14 @@ const keyValuePairPattern = /([-\w]+)=(?:'([^']*)'|"([^"]*)"|\`([^`]*)\`)/;
 
 const WhiteSpace = createToken({ name: "WhiteSpace", pattern: /\s+/, group: Lexer.SKIPPED });
 const Range0 = createToken({ name: "Range0", pattern: /\w*{\d+}/, label: "range" });
-const Range2Dotted = createToken({ name: "Range2Dotted", pattern: /\w*{\d+\.\.\d+}/, label: "range" });
+const Range2 = createToken({ name: "Range2", pattern: /\w*{\d+\.\.\d+}/, label: "range" });
 const Ranges = createToken({ name: "Ranges", pattern: /\w*{(?:\d+|\d+\.\.\d+)(?:,\s*(?:\d+|\d+\.\.\d+))*}/, label: "range" });
 const KeyValuePair = createToken({ name: "KeyValuePair", pattern: keyValuePairPattern, label: "pair" });
 
 const tokens = [
 	WhiteSpace,
 	Range0,
-	Range2Dotted,
+	Range2,
 	Ranges,
 	KeyValuePair
 ];
@@ -53,14 +53,14 @@ export default class FenceParser {
 		switch(type) {
 			case "Range0":
 				return { key, value: [Number(value)], label };
-			case "Range2Dotted":
-				const [ dottedB0, dottedB1 ] = value.split("..").map((bound) => Number(bound));
-				const dottedRangeStart = Math.min(dottedB0, dottedB1);
-				const dottedRangeStop = Math.max(dottedB0, dottedB1);
-				const dottedRangeSize = dottedRangeStop - dottedRangeStart + 1;
+			case "Range2":
+				const [ b0, b1 ] = value.split("..").map((bound) => Number(bound));
+				const start = Math.min(b0, b1);
+				const stop = Math.max(b0, b1);
+				const size = stop - start + 1;
 				return {
 					key,
-					value: Array.from({ length: dottedRangeSize }, (_, i) => i + dottedRangeStart),
+					value: Array.from({ length: size }, (_, i) => i + start),
 					label
 				};
 			case "Ranges":
