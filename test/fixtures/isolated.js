@@ -1,4 +1,4 @@
-const fixtures = [
+export default [
 	{
 		input: '',
 		output: {},
@@ -29,5 +29,3 @@ const fixtures = [
 		output: { highlight: [8, 9, 10, 11, 20] },
 	}
 ];
-
-export default fixtures;
