@@ -1,6 +1,6 @@
 {
 	"name": "@microflash/fenceparser",
-	"version": "3.1.0",
+	"version": "4.0.0",
 	"description": "A metadata parser for code fences in markdown",
 	"main": "src/index.js",
 	"scripts": {
@@ -24,7 +24,7 @@
 		"defu": "^6.1.4"
 	},
 	"devDependencies": {
-		"vitest": "^2.1.1"
+		"vitest": "^2.1.8"
 	},
-	"packageManager": "pnpm@9.11.0"
+	"packageManager": "pnpm@9.15.3"
 }
