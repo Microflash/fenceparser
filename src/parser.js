@@ -81,13 +81,35 @@ const parser = new BaseFenceParser();
 const defaults = {
 	rangeKey: "highlight"
 };
+const quotedStringRegex = /^['"`]/;
+
+function processCst(cst, options) {
+	if (!cst || !cst.children) {
+		return {};
+	}
+
+	const result = {};
+
+	cst.children.keyValuePairs?.filter(kvNode => !!kvNode.children).forEach((kvNode) => {
+		const key = kvNode.children.Key[0].image;
+		let value = kvNode.children.StringValue[0].image;
+		if (quotedStringRegex.test(value)) {
+			value = value.slice(1, -1);
+		}
+		if (typeof value === "string") {
+			result[key] = value;
+		}
+	});
+
+	// TODO: process ranges in this CST
+}
 
 class FenceParser {
 	parse(text, options = defaults) {
 		const lexingResult = lexer.tokenize(text);
 		parser.input = lexingResult.tokens;
 		const cst = parser.metadata();
-		// TODO: process this CST
+		return processCst(cst, options);
 	}
 }
 
