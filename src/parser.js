@@ -101,7 +101,25 @@ function processCst(cst, options) {
 		}
 	});
 
-	// TODO: process ranges in this CST
+	cst.children.ranges?.filter(rangesNode => !!rangesNode.children).forEach((rangesNode) => {
+		const annotation = rangesNode.children.RangeAnnotation ?
+			rangesNode.children.RangeAnnotation[0].image : options.rangeKey;
+
+		if (!result[annotation]) {
+			result[annotation] = [];
+		}
+
+		rangesNode.children.range?.filter(rangeNode => !!rangeNode.children && rangeNode.children.NumericValue).forEach((rangeNode) => {
+			const [b0, b1 = b0] = rangeNode.children.NumericValue.map(numericValue => Number(numericValue.image));
+			const start = Math.min(b0, b1);
+			const stop = Math.max(b0, b1);
+			const size = stop - start + 1;
+			const expandedRange = Array.from({ length: size }, (_, i) => i + start);
+			expandedRange.forEach(value => result[annotation].push(value));
+		});
+	});
+
+	return result;
 }
 
 class FenceParser {
