@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { it } from "node:test";
 import FenceParser from "../src/index.js";
 import isolatedFixtures from "./fixtures/isolated.js";
 import combinedFixtures from "./fixtures/combined.js";
@@ -12,19 +12,19 @@ for (const fixture of fixtures) {
 	const expected = fixture.output;
 	const title = `input "${fixture.input}"`;
 
-	it(title, () => {
+	it(title, (t) => {
 		const keys = Object.keys(expected);
 		if (keys.length) {
 			for (const key of keys) {
 				const output = result[key];
 				if (Array.isArray(output)) {
-					expect(output.sort()).toEqual(expected[key].sort());
+					t.assert.deepEqual(output.sort(), expected[key].sort());
 				} else {
-					expect(output).toEqual(expected[key]);
+					t.assert.deepEqual(output, expected[key]);
 				}
 			}
 		} else {
-			expect(result).toEqual(expected);
+			t.assert.deepEqual(result, expected);
 		}
 	});
 }

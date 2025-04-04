@@ -1,10 +1,10 @@
 {
 	"name": "@microflash/fenceparser",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"description": "A metadata parser for code fences in markdown",
 	"main": "src/index.js",
 	"scripts": {
-		"test": "vitest parser"
+		"test": "node --test ./test/parser.test.js"
 	},
 	"type": "module",
 	"repository": "https://github.com/Microflash/fenceparser.git",
@@ -23,8 +23,5 @@
 		"chevrotain": "^11.0.3",
 		"defu": "^6.1.4"
 	},
-	"devDependencies": {
-		"vitest": "^2.1.1"
-	},
-	"packageManager": "pnpm@9.11.0"
+	"packageManager": "pnpm@10.7.1"
 }
